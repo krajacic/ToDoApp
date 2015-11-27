@@ -30,7 +30,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="380dp"
         android:id="@+id/listViewID"
         android:layout_below="@+id/app_logo"
         android:layout_alignParentLeft="true"
@@ -53,7 +53,8 @@
         android:layout_alignBaseline="@+id/text_boxID"
         android:layout_alignBottom="@+id/text_boxID"
         android:layout_alignRight="@+id/listViewID"
-        android:text="Add"/>
+        android:text="Add"
+        android:onClick="addTodoItem"/>
 
 
 
