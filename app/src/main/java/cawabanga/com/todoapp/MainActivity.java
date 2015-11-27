@@ -3,6 +3,7 @@ package cawabanga.com.todoapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,6 +34,20 @@ public class MainActivity extends AppCompatActivity {
         listViewID.setAdapter(itemsAdapter);
         items.add("First Item");
         items.add("Second Item");
+        setupListViewListener();
+
+    }
+
+    private void setupListViewListener(){
+        listViewID.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                items.remove(position);
+                itemsAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
 
     }
 
@@ -42,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         textBoxID.setText("");
 
     }
+
 
 
 }
