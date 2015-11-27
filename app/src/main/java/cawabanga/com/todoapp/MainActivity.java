@@ -10,8 +10,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vstechlab.easyfonts.EasyFonts;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        readItems();
 
         AppNameTextView = (TextView) findViewById(R.id.app_name);
         AppNameTextView.setTypeface(EasyFonts.caviarDreamsBold(this));
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 items.remove(position);
                 itemsAdapter.notifyDataSetChanged();
+                saveItems();
                 return true;
             }
         });
@@ -55,6 +63,30 @@ public class MainActivity extends AppCompatActivity {
         EditText textBoxID = (EditText) findViewById(R.id.text_boxID);
         itemsAdapter.add(textBoxID.getText().toString()); //Adding text from textBox to items Adapter
         textBoxID.setText("");
+        saveItems(); //write to file
+
+    }
+
+    private void readItems(){
+        File filesDir = getFilesDir();
+        File todoFile = new File(filesDir, "todo.txt");
+        try {
+            items = new ArrayList<String>(FileUtils.readLines(todoFile));
+        }   catch (IOException e){
+                items = new ArrayList<String>();
+                e.printStackTrace();
+        }
+
+    }
+
+    private void saveItems(){
+        File filesDir = getFilesDir();
+        File todoFile = new File(filesDir, "todo.txt");
+        try {
+            FileUtils.writeLines(todoFile, items);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
