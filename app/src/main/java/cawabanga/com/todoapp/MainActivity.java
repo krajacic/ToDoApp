@@ -1,14 +1,22 @@
 package cawabanga.com.todoapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vstechlab.easyfonts.EasyFonts;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView AppNameTextView;
+    ArrayList<String> items;
+    ArrayAdapter<String> itemsAdapter;
+    ListView listViewID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +26,14 @@ public class MainActivity extends AppCompatActivity {
         AppNameTextView = (TextView) findViewById(R.id.app_name);
         AppNameTextView.setTypeface(EasyFonts.caviarDreamsBold(this));
 
+        listViewID = (ListView) findViewById(R.id.listViewID);
+        items = new ArrayList<String>();
+        itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        listViewID.setAdapter(itemsAdapter);
+        items.add("First Item");
+        items.add("Second Item");
+
     }
+
+
 }
